@@ -13,35 +13,36 @@ if ($conn->connect_error) {
 
 $route = $_GET['route'];
 
-// if ($route === 'getAllHeroes'){
-//   $myData = getAllHeroes($conn);
-//   echo $myData;
-// } 
-
-// function getAllHeroes($conn){
-//   $data=array();
-  
-//   $sql = "SELECT * FROM heroes";
-//   $result = $conn->query($sql);
-  
-//   if($result->num_rows > 0){
-//     while($row = $result->fetch_assoc()) {
-//       array_push($data,$row);
-//     }
-//   }
-//   return json_encode($data);
-// }
-    
-// $conn->close(); 
-
-
-
-if ($route === 'getHeroById'){
-  $heroId = $_GET['hero_id'];
-  $myData = getHeroById($conn, $heroId);
-    echo $myData;
+switch ($route) {
+  case "getAllHeroes":
+    $myData = getAllHeroes($conn);
+    break;
+  case "getHeroById":
+    $heroId = $_GET['hero_id'];
+    $myData = getHeroById($conn, $heroId);
+    break;
+  default:
+    $myData = json_encode([]);   
 }
-    
+
+echo $myData;
+
+$conn->close();
+
+function getAllHeroes($conn){
+  $data=array();
+  
+  $sql = "SELECT * FROM heroes";
+  $result = $conn->query($sql);
+  
+  if($result->num_rows > 0){
+    while($row = $result->fetch_assoc()) {
+      array_push($data,$row);
+    }
+  }
+  return json_encode($data);
+}
+
  function getHeroById($conn, $heroId){
    $data=array();
 
@@ -55,7 +56,5 @@ if ($route === 'getHeroById'){
     }
     return json_encode($data);
   }
-  $conn->close();
-
    
 ?>
