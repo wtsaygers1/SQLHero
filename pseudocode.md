@@ -3,7 +3,7 @@ everything inside the php opening closing tags <?php  ?>
 create a class of Hero with the properties of a hero
   these will be the base tables
   
-create the object oriented talbe
+create the object oriented table
   $servername = localhost
    $username = root
    $password = mayJah#Drups_100%
