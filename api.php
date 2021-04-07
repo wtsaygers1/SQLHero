@@ -8,30 +8,54 @@ $dbname = "Hero";
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+  die("Connection failed: " . $conn->connect_error);        
 }
 
 $route = $_GET['route'];
 
-if ($route === 'getAllHeroes'){
-  $myData = getAllHeroes($conn);
-  echo $myData;
-} 
+// if ($route === 'getAllHeroes'){
+//   $myData = getAllHeroes($conn);
+//   echo $myData;
+// } 
 
-function getAllHeroes($conn){
-  $data=array();
+// function getAllHeroes($conn){
+//   $data=array();
   
-  $sql = "SELECT * FROM heroes";
-  $result = $conn->query($sql);
+//   $sql = "SELECT * FROM heroes";
+//   $result = $conn->query($sql);
   
-  if($result->num_rows > 0){
-    while($row = $result->fetch_assoc()) {
-      array_push($data,$row);
-    }
-  }
-  return json_encode($data);
+//   if($result->num_rows > 0){
+//     while($row = $result->fetch_assoc()) {
+//       array_push($data,$row);
+//     }
+//   }
+//   return json_encode($data);
+// }
+    
+// $conn->close(); 
+
+
+
+if ($route === 'getHeroById'){
+  $heroId = $_GET['hero_id'];
+  $myData = getHeroById($conn, $heroId);
+    echo $myData;
 }
     
-$conn->close(); 
+ function getHeroById($conn, $heroId){
+   $data=array();
+
+    $sql = "SELECT * FROM heroes WHERE id = " . $heroId;
+    $result = $conn->query($sql);
+    
+    if($result->num_rows > 0){
+      while($row = $result->fetch_assoc()){
+        array_push($data,$row);
+      }
+    }
+    return json_encode($data);
+  }
+  $conn->close();
+
    
 ?>

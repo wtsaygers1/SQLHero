@@ -21,6 +21,7 @@
           </h1>
           <ul>
             <li><a href="/api.php?route=getAllHeroes" target="_blank">Get All Heroes</a></li>
+            <li><a href="/api.php?route=getHeroById&hero_id=5" target="_blank">Get Hero By ID</a></li>
           </ul>
         </div>
       </div>
