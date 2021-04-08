@@ -33,6 +33,12 @@ switch ($route) {
     $about_me = $_GET['about_me'];
     $biography = $_GET['biography'];
     $myData = deleteHeroFromTable($conn, $id, $name, $about_me, $biography, '');
+    break;
+  case "updateHeroAbility":
+    $id = $_GET['id'];
+    $ability = $_GET['ability'];
+    $myData = updateHeroAbility($conn, $id, $ability);
+    break;
   default:
     $myData = json_encode([]);   
 }
@@ -95,5 +101,17 @@ function deleteHeroFromTable($conn, $id, $name, $about_me, $biography, $img){
   
   return json_encode([$name]);
 }
-   
+
+function updateHeroAbility($conn, $id, $ability){
+  
+  $sql = "UPDATE abilities SET ability=$ability WHERE id=$id";
+
+  if($conn->query($sql) === TRUE){
+    echo "Record updated successfully";
+  } else {
+    echo "Error updating record: " . $conn->error;
+  }
+
+    return json_encode([$ability]);
+}
 ?>
