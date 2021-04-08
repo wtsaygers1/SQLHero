@@ -27,6 +27,12 @@ switch ($route) {
     $biography = $_GET['biography'];
     $myData = addHeroToTable($conn, $name, $about_me, $biography, '');
     break;
+  case "deleteHeroFromTable":
+    $id = $_GET['id'];
+    $name = $_GET['name'];
+    $about_me = $_GET['about_me'];
+    $biography = $_GET['biography'];
+    $myData = deleteHeroFromTable($conn, $id, $name, $about_me, $biography, '');
   default:
     $myData = json_encode([]);   
 }
@@ -72,6 +78,19 @@ function addHeroToTable($conn, $name, $about_me, $biography, $img){
     $newHero = "('success':'created new hero')";
   } else {
     echo "{'error': '" . $sql . " - " . $conn->error . "'}";
+  }
+  
+  return json_encode([$name]);
+}
+
+function deleteHeroFromTable($conn, $id, $name, $about_me, $biography, $img){
+  
+  $sql = "DELETE FROM heroes WHERE id=$id";
+    
+    if ($conn->query($sql) === TRUE){
+    echo "Record deleted successfully";
+  } else {
+    echo "Error deleting record: " . $conn->error;
   }
   
   return json_encode([$name]);
