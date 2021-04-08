@@ -21,6 +21,12 @@ switch ($route) {
     $heroId = $_GET['hero_id'];
     $myData = getHeroById($conn, $heroId);
     break;
+  case "addHeroToTable":
+    $name = $_GET['name'];
+    $about_me = $_GET['about_me'];
+    $biography = $_GET['biography'];
+    $myData = addHeroToTable($conn, $name, $about_me, $biography, '');
+    break;
   default:
     $myData = json_encode([]);   
 }
@@ -43,7 +49,7 @@ function getAllHeroes($conn){
   return json_encode($data);
 }
 
- function getHeroById($conn, $heroId){
+function getHeroById($conn, $heroId){
    $data=array();
 
     $sql = "SELECT * FROM heroes WHERE id = " . $heroId;
@@ -54,7 +60,21 @@ function getAllHeroes($conn){
         array_push($data,$row);
       }
     }
-    return json_encode($data);
+      return json_encode($data);
+ }
+
+function addHeroToTable($conn, $name, $about_me, $biography, $img){
+  
+  $sql = "INSERT INTO heroes (name, about_me, biography, image_url)
+  VALUES ('$name', '$about_me', '$biography', '$img')";
+  
+  if ($conn->query($sql) === TRUE){
+    $newHero = "('success':'created new hero')";
+  } else {
+    echo "{'error': '" . $sql . " - " . $conn->error . "'}";
   }
+  
+  return json_encode([$name]);
+}
    
 ?>

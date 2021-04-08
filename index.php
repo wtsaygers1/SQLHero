@@ -22,6 +22,7 @@
           <ul>
             <li><a href="/api.php?route=getAllHeroes" target="_blank">Get All Heroes</a></li>
             <li><a href="/api.php?route=getHeroById&hero_id=5" target="_blank">Get Hero By ID</a></li>
+            <li><a href="/api.php?route=addHeroToTable&name=Superman&about_me=''&biography=''" target="_blank">Add Hero</a></li>
           </ul>
         </div>
       </div>
